@@ -1,0 +1,12 @@
+name: BuildingGenerator
+main: fr.cr3art.spigot.Main
+version: 0.0.1
+api-version: 1.14
+commands:
+   exmple:
+     description: description
+     aliases: [aliasA,aliasB]
+permissions:
+  exmplePermision:
+   description: Allows foo command
+   default: op

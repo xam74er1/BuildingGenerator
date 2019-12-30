@@ -6,6 +6,18 @@ commands:
    exmple:
      description: description
      aliases: [aliasA,aliasB]
+   inventaire_main:
+     description: description
+     aliases: [aliasA,aliasB]
+   inventaire_arg:
+     description: description
+     aliases: [aliasA,aliasB]
+   operation:
+     description: description
+     aliases: [aliasA,aliasB]
+   menu:
+     description: description
+     aliases: [aliasA,aliasB]
 permissions:
   exmplePermision:
    description: Allows foo command

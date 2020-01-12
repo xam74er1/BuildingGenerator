@@ -1,6 +1,5 @@
 package GUI;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,32 +16,30 @@ import net.md_5.bungee.api.chat.ClickEvent;
 
 //Le menu en bas qui reste tout le temps le meme
 
-public  class MenuDeBase extends LigneDuBas{
-	int size =45;
+public class MenuDeBase extends LigneDuBas {
+	int size = 45;
 	Inventory inv = null;
-	static String name ="§7§lMenu";
-	
-	Player p;
+	static String name = "ï¿½7ï¿½lMenu";
 
+	Player p;
 
 	public MenuDeBase(Player p) {
 		super(p);
 		this.p = p;
 		init(inv);
 	}
+
 	public void init(Inventory inv) {
 		// TODO Auto-generated method stub
 		inv = Bukkit.createInventory(p, size, name);
 		fillInventory(inv);
 		super.genereLigneDuBas(inv);
-		
+
 		p.openInventory(inv);
 
 	}
 
 	public void fillInventory(Inventory inv) {
-
-
 
 		ItemStack france = HeadList.getHead("FRANCE");
 		ItemStack commandblock = HeadList.getHead("COMMANDBLOCK");
@@ -51,13 +48,12 @@ public  class MenuDeBase extends LigneDuBas{
 		ItemMeta it2 = france.getItemMeta();
 		ItemMeta it3 = commandblock.getItemMeta();
 		ItemMeta it4 = book.getItemMeta();
-		it2.setDisplayName("§c§lLangue");
+		it2.setDisplayName("ï¿½cï¿½lLangue");
 		france.setItemMeta(it2);
-		it3.setDisplayName("§c§lConfiguration");
+		it3.setDisplayName("ï¿½cï¿½lConfiguration");
 		commandblock.setItemMeta(it3);
-		it4.setDisplayName("§c§lTutoriels");
+		it4.setDisplayName("ï¿½cï¿½lTutoriels");
 		book.setItemMeta(it4);
-
 
 		inv.setItem(20, france);
 		inv.setItem(22, commandblock);
@@ -65,33 +61,29 @@ public  class MenuDeBase extends LigneDuBas{
 
 	}
 
-
-
-
-
-	public static void onInventoryClick(InventoryClickEvent e)  {
+	public static void onInventoryClick(InventoryClickEvent e) {
 
 		Player p = (Player) e.getWhoClicked();
 		ItemStack it = e.getCurrentItem();
 
 		e.setCancelled(true);
 
-		if(it!=null) {
-			if (it.getType()==Material.PLAYER_HEAD) {
+		if (it != null) {
+			if (it.getType() == Material.PLAYER_HEAD) {
 				String name = it.getItemMeta().getDisplayName();
-				if(name.equalsIgnoreCase("§c§lMenu principale")){
-					p.sendMessage("§cErreur: Vous vous trouver déjà au Menu Principale :c");
+				if (name.equalsIgnoreCase("ï¿½cï¿½lMenu principale")) {
+					p.sendMessage("ï¿½cErreur: Vous vous trouver dï¿½jï¿½ au Menu Principale :c");
 				}
-				if(name.equalsIgnoreCase("§c§lPlanetMinecraft")){
-					p.sendMessage("§c§lMettre un lien clickable ici");					
+				if (name.equalsIgnoreCase("ï¿½cï¿½lPlanetMinecraft")) {
+					p.sendMessage("ï¿½cï¿½lMettre un lien clickable ici");
 				}
-				if(name.equalsIgnoreCase("§3§lTwitter")){
-					p.sendMessage("§3§lMettre un lien clickable ici");					
+				if (name.equalsIgnoreCase("ï¿½3ï¿½lTwitter")) {
+					p.sendMessage("ï¿½3ï¿½lMettre un lien clickable ici");
 				}
-				if(name.equalsIgnoreCase("§r§lYou§c§lTube")){
-					p.sendMessage("§r§lMettre un lien clickable ici");	
+				if (name.equalsIgnoreCase("ï¿½rï¿½lYouï¿½cï¿½lTube")) {
+					p.sendMessage("ï¿½rï¿½lMettre un lien clickable ici");
 				}
-				if(name.equalsIgnoreCase("§c§lConfiguration")){		
+				if (name.equalsIgnoreCase("ï¿½cï¿½lConfiguration")) {
 					new MenuConfiguration(p);
 				}
 			}
@@ -102,10 +94,8 @@ public  class MenuDeBase extends LigneDuBas{
 		return name;
 	}
 
-
 	public static void setName(String name) {
 		MenuDeBase.name = name;
 	}
-
 
 }

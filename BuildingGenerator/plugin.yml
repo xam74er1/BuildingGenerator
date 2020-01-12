@@ -6,6 +6,8 @@ commands:
    exmple:
      description: description
      aliases: [aliasA,aliasB]
+   example:
+     description: commande d'example
    inventaire_main:
      description: description
      aliases: [aliasA,aliasB]

@@ -13,11 +13,10 @@ import GUI.MenuDeBase;
 import GUI.LigneDuBas;
 
 public class OnInventoryClick implements Listener {
-    
-    
+
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e)  {
-        
+    public void onInventoryClick(InventoryClickEvent e) {
+
         Player p = (Player) e.getWhoClicked();
         ItemStack it = e.getCurrentItem();
 
@@ -25,17 +24,15 @@ public class OnInventoryClick implements Listener {
 
         InventoryView w = e.getView();
 
-
-
-        if(inv.getType()==InventoryType.CHEST&&  w.getTitle().equalsIgnoreCase(LigneDuBas.getName())) {
+        if (inv.getType() == InventoryType.CHEST && w.getTitle().equalsIgnoreCase(LigneDuBas.getName())) {
             LigneDuBas.onInventoryClick(e);
         }
-        if(inv.getType()==InventoryType.CHEST&&  w.getTitle().equalsIgnoreCase(MenuDeBase.getName())) {
+        if (inv.getType() == InventoryType.CHEST && w.getTitle().equalsIgnoreCase(MenuDeBase.getName())) {
             MenuDeBase.onInventoryClick(e);
         }
-        if(inv.getType()==InventoryType.CHEST&&  w.getTitle().equalsIgnoreCase(MenuConfiguration.getName())) {
+        if (inv.getType() == InventoryType.CHEST && w.getTitle().equalsIgnoreCase(MenuConfiguration.getName())) {
             MenuConfiguration.onInventoryClick(e);
         }
-        
+
     }
 }

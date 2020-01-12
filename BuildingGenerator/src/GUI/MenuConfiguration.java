@@ -40,6 +40,7 @@ public class MenuConfiguration extends  MenuDeBase{
 
 
 
+	
 
 	public static void onInventoryClick(InventoryClickEvent e)  {
 

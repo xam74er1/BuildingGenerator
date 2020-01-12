@@ -1,0 +1,10 @@
+/.metadata/
+.metadata/
+.recommenders/
+/.recommenders/
+.vscode/launch.json
+.gitignore
+server/
+build.bash
+BuildingGenerator/bin/
+BuildingGenerator/.classpath

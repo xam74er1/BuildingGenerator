@@ -1,7 +1,6 @@
 package command;
 
 import org.bukkit.command.Command;
-import GUI.LigneDuBas;
 import GUI.MenuDeBase;
 
 import org.bukkit.command.CommandSender;
@@ -24,4 +23,5 @@ public class Menu implements CommandExecutor {
 		return false;
 
 	}
+
 }

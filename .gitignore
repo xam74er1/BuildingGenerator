@@ -1,1 +1,14 @@
+<<<<<<< HEAD
 /BuildingGenerator/
+=======
+/.metadata/
+.metadata/
+.recommenders/
+/.recommenders/
+.vscode/launch.json
+.gitignore
+server/
+build.bash
+BuildingGenerator/bin/
+BuildingGenerator/.classpath
+>>>>>>> branch 'master' of https://github.com/xam74er1/BuildingGenerator.git

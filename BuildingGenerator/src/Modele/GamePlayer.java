@@ -11,6 +11,7 @@ public class GamePlayer {
 	public GamePlayer(Player p) {
 		super();
 		this.p = p;
+		this.configuration = new Configuration();
 	}
 
 

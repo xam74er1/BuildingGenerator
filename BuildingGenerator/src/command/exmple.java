@@ -281,7 +281,7 @@ public class exmple implements CommandExecutor {
 		Log.print("dimention de la base " + base.getDimensions() + " vec " + vec);
 
 		// On les place au bonne position
-		bv3 = bv3.subtract(vectorToBlockVector3(vec));
+	//	bv3 = bv3.subtract(vectorToBlockVector3(vec));
 
 		// Log.print(" bv "+bv3+" x "+x+" y"+y+" z "+z+" "+cp.getOrigin()+" ");
 

@@ -3,17 +3,27 @@ package Modele;
 import java.util.Random;
 
 public class Configuration {
-
-	int maxSize = 7 ;
 	Style style = null;
+	
+	
+	//Taille en tout jore
+	int maxSize = 10;
+	int maxLevel = 3;//nbr Etage max
+	
+	//Proba
 	double probabiliteSpawnNext = 0.35;
-
+	double probabiliteSpawnLevel = 1.0;
+	
+	
+	
+//Random
 	int seed = -1;
 	Random random ;
 
 	public Configuration() {
 
 		generateRandom();
+		style = new Style();
 	}
 
 	public void setRandom(int seed) {
@@ -74,6 +84,22 @@ public class Configuration {
 
 	public void setRandom(Random random) {
 		this.random = random;
+	}
+
+	public int getMaxLevel() {
+		return maxLevel;
+	}
+
+	public void setMaxLevel(int maxLevel) {
+		this.maxLevel = maxLevel;
+	}
+
+	public double getProbabiliteSpawnLevel() {
+		return probabiliteSpawnLevel;
+	}
+
+	public void setProbabiliteSpawnLevel(double probabiliteSpawnLevel) {
+		this.probabiliteSpawnLevel = probabiliteSpawnLevel;
 	}
 
 

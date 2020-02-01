@@ -17,6 +17,8 @@ commands:
    operation:
      description: description
      aliases: [aliasA,aliasB]
+   generate:
+     description: description
    menu:
      description: description
      aliases: [aliasA,aliasB]

@@ -2,10 +2,10 @@ package Modele;
 
 public enum Cardinaux {
 	
-	North("North",0,0,-1),
+	North("North",180,0,-1),
 	South("South",0,0,1),
-	West("West",0,-1,0),
-	East("East",0,1,0);
+	West("West",90,-1,0),
+	East("East",-90,1,0);
 	
 	
 	String name;

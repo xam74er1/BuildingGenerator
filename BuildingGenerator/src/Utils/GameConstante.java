@@ -12,6 +12,8 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 public class GameConstante {
 
 	public final static String schematicsPath = ((WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath() + "\\schematics\\";
-	
+	public final static String folderName = "BuildingGenerator";
+	public final static String pluginPath = "plugins/"+folderName;
+	public final static String stylePath = pluginPath+"/Style";
 
 }

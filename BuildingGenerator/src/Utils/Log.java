@@ -7,6 +7,10 @@ import net.md_5.bungee.api.ChatColor;
 public class Log {
 
 	static boolean log = true;
+	
+	public static void debug(String s) {
+		print(s);
+	}
 
 	public static void print(String s) {
 		if (log) {

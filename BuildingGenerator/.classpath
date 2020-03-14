@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/xam74/Desktop/Minecraft/spigot-1.14.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/xam74/Downloads/worldedit-bukkit-7.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xam74/Desktop/Minecraft/ProtocolLib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

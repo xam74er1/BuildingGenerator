@@ -35,6 +35,8 @@ public class Floor extends Build {
 	Floor fWest= null;
 
 	Stage etage = null;
+	
+	Rooft rooft = null;
 
 	int virtualX=0,virtualY=0;
 	int x = 0;int y =0;int z = 0;
@@ -132,7 +134,7 @@ public class Floor extends Build {
 				w = new Walls(buildig, card, this);
 			}
 		}
-
+		generateRooft();
 	}
 
 	@Override
@@ -250,6 +252,21 @@ public class Floor extends Build {
 
 		return false;
 	}
+	
+	
+	public void generateRooft(){
+		
+		if(this.etage==null) {
+			rooft = new Rooft(buildig,this);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 
 	public int getvirutalX() {
 		return virtualX;

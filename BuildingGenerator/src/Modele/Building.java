@@ -15,6 +15,7 @@ import com.sk89q.worldedit.function.operation.Operations;
 
 import Modele.Build.Build;
 import Modele.Build.Floor;
+import Modele.Build.Rooft;
 import Modele.Build.Walls;
 import Utils.Log;
 
@@ -34,6 +35,7 @@ public class Building {
 
 	ArrayList<Floor> listFloor = new ArrayList<Floor>();
 	ArrayList<Walls> listWalls = new ArrayList<Walls>();
+	ArrayList<Rooft> listRooft = new ArrayList<Rooft>();
 
 
 	int indexGenerate = 1;
@@ -45,24 +47,29 @@ public class Building {
 
 	ArrayList<Operation> listOperation = new ArrayList<Operation>();
 
+	//COnstruteur 
 	public Building(GamePlayer gp) {
 		super();
 		this.gp = gp;
 
+		//On inilise WE
 		worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 
 
+		//On cree un centre
 		centreX = getConfiguration().getMaxSize()/2;
 		centreY = getConfiguration().getMaxSize()/2;
 
+		//On genere virutllment un terrin
 		terrin = new int[getConfiguration().getMaxSize()][getConfiguration().getMaxSize()];
 
+		//On recupre les postion du player
 		posX = gp.getP().getLocation().getBlockX();
 		posY = gp.getP().getLocation().getBlockY();
 		posZ = gp.getP().getLocation().getBlockZ();
 
 
-
+//On met tt les case du terrin a 0
 		for(int i = 0;i<getConfiguration().getMaxSize();i++) {
 			for(int j = 0;j<getConfiguration().getMaxSize();j++) {
 				terrin[i][j] = 0;
@@ -72,11 +79,12 @@ public class Building {
 
 
 
-
+//Et cest partis 
 		generate();
 		build();
 	}
 
+	//on genere vrituelllment tout le battiment 
 	public void generate() {
 		Log.print("Start generation ");
 		start = new Floor(this, centreX, centreY);
@@ -96,6 +104,7 @@ public class Building {
 		Log.print("Fin generation");
 	}
 
+	//Puis on constuis le battiment genere
 	public void build() {
 		Log.print("Debut du build");
 		//Initilisation
@@ -104,13 +113,13 @@ public class Building {
 
 		//Action
 		ArrayList<Build> listBuild = getAllBuild();
-
+//on paste tout les schematics
 		for(Build b : listBuild) {
 			b.build();
 
 		}
 
-		//Fin
+	//On execute tout les operation 
 		for(Operation op : listOperation) {
 			try {
 
@@ -120,7 +129,7 @@ public class Building {
 				e.printStackTrace();
 			}
 		}
-
+//On fini la setion et on save pour le undo
 		editSession.flushSession();
 		localSession.remember(editSession);
 		Log.print("Fin du build");
@@ -145,8 +154,8 @@ public class Building {
 		ArrayList<Build> listBuild = new ArrayList<Build>();
 
 		listBuild.addAll(listFloor);
-		Log.print("Taille des walls"+listWalls.size());
 		listBuild.addAll(listWalls);
+		listBuild.addAll(listRooft);
 		return listBuild;
 	}
 
@@ -172,6 +181,11 @@ public class Building {
 		listWalls.add(w);
 	}
 
+	
+	public void addRooft(Rooft r) {
+		listRooft.add(r);
+	}
+	
 	public boolean addOperation(Operation e) {
 		return listOperation.add(e);
 	}

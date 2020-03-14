@@ -11,4 +11,7 @@ public class EG_Exception extends Exception {
 		// TODO Auto-generated constructor stub
 		super(Message);
 	}
+	
+	
+	
 }

@@ -22,6 +22,10 @@ commands:
    menu:
      description: description
      aliases: [aliasA,aliasB]
+   TestParicule:
+    description: test les particule
+   style:
+    description: relaive a la creation , et liste des style
 permissions:
   exmplePermision:
    description: Allows foo command

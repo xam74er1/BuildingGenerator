@@ -2,6 +2,8 @@ package Modele;
 
 import java.util.Random;
 
+import Utils.StyleExeption;
+
 public class Configuration {
 	Style style = null;
 	
@@ -12,7 +14,7 @@ public class Configuration {
 	
 	//Proba
 	double probabiliteSpawnNext = 0.35;
-	double probabiliteSpawnLevel = 1.0;
+	double probabiliteSpawnLevel = 0.35;
 	
 	
 	
@@ -23,7 +25,7 @@ public class Configuration {
 	public Configuration() {
 
 		generateRandom();
-		style = new Style();
+		style = new Style("default");
 	}
 
 	public void setRandom(int seed) {
@@ -61,6 +63,17 @@ public class Configuration {
 		this.style = style;
 	}
 
+	public void setStyle(String name) throws StyleExeption {
+		Style s = Style.getStyle(name);
+		if(s==null) {
+			throw new StyleExeption("Style not found");
+		}else {
+			this.style = s;
+		}
+		
+		
+		
+	}
 
 	public double getProbabiliteSpawnNext() {
 		return probabiliteSpawnNext;

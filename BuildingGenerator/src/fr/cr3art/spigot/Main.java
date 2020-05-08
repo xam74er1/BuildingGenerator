@@ -3,6 +3,7 @@ package fr.cr3art.spigot;
 import java.io.File;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,7 @@ import listener.*;
 
 import command.Example;
 import command.GeneratedCmd;
+import command.GeneratedCustomCmd;
 import command.Menu;
 import command.StyleCmd;
 import command.cmdTestParticule;
@@ -32,6 +34,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		playerMap = new HashMap<String, GamePlayer>();
+		
 		
 		ini();
 
@@ -53,16 +56,19 @@ public class Main extends JavaPlugin {
 
 
 		this.getCommand("generate").setExecutor(new GeneratedCmd());
+		
+		this.getCommand("generateCustom").setExecutor(new GeneratedCustomCmd());
 
 
 		this.getCommand("Style").setExecutor(new StyleCmd());
+		this.getCommand("Style").setTabCompleter(StyleCmd.tabCompleter);
 
 
 		this.getCommand("Example").setExecutor(new Example());
 		this.getCommand("Example").setTabCompleter(Example.tabCompleter);
 		
 		
-		actionEvryTick();
+		//actionEvryTick();
 
 	}
 

@@ -1,9 +1,11 @@
 package Modele;
 
 import org.bukkit.ChatColor;
+
 import org.bukkit.entity.Player;
 
 import Utils.I18nMessage;
+import Utils.Log;
 
 public class GamePlayer {
 	Player p ;
@@ -19,6 +21,14 @@ public class GamePlayer {
 		message = new I18nMessage();
 	}
 
+
+	public boolean saveSechematics(String category) {
+		return getConfiguration().getStyle().save(category, p);
+	}
+	
+
+	
+	///////////
 
 	public Player getP() {
 		return p;
@@ -50,9 +60,10 @@ public class GamePlayer {
 		
 		String str = message.getMessage(key);
 		
+		Log.debug("length"+args.length+" 0 "+args[0]);
 		
 		for(int i =0;i<args.length;i++) {
-			str.replace("{"+i+"}", args[i]);
+			str = str.replace("{"+i+"}", args[i]);
 		}
 		
 		p.sendMessage(color+str);

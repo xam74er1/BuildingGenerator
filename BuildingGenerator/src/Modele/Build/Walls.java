@@ -63,7 +63,7 @@ buildig.addWalls(this);
 		//Log.print("decalage x: " +((dim.getBlockX()/2+centre.getBlockX())*cardinaux.getX())+" z : "+((dim.getBlockZ()/2+centre.getBlockZ())*cardinaux.getZ()));
 		
 		//Log.print("set at "+x+" "+y+" "+z);
-		
+
 		op = schem.pastWithRotation(x, y, z,(int) cardinaux.getRotation(), buildig.getEditSession());
 		
 		buildig.addOperation(op);

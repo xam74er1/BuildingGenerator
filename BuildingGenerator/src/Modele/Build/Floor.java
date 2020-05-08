@@ -38,22 +38,40 @@ public class Floor extends Build {
 	
 	Rooft rooft = null;
 
-	int virtualX=0,virtualY=0;
+	int virtualX=0,virtualZ=0;
 	int x = 0;int y =0;int z = 0;
 
 	int level = 1;
 
 	Schematics schem;
-
-	public Floor(Building buildig,int x,int y) {
+	
+	public Floor(Building buildig,int x,int level,int z) {
 		super(buildig);
 		this.virtualX = x;
-		this.virtualY = y;
+		this.virtualZ = z;
 
 		schem = getStyle().getRandomFloor();
 
 		this.x = (virtualX-getConfiguration().getMaxSize()/2) * schem.getDimention().getBlockX()+buildig.getPosX();
-		this.z = (virtualY-getConfiguration().getMaxSize()/2)*schem.getDimention().getBlockZ()+buildig.getPosZ();
+		this.z = (virtualZ-getConfiguration().getMaxSize()/2)*schem.getDimention().getBlockZ()+buildig.getPosZ();
+
+		this.level = level;
+
+		ini();
+
+		Log.print("End of constructor");
+	}
+	
+
+	public Floor(Building buildig,int x,int z) {
+		super(buildig);
+		this.virtualX = x;
+		this.virtualZ = z;
+
+		schem = getStyle().getRandomFloor();
+
+		this.x = (virtualX-getConfiguration().getMaxSize()/2) * schem.getDimention().getBlockX()+buildig.getPosX();
+		this.z = (virtualZ-getConfiguration().getMaxSize()/2)*schem.getDimention().getBlockZ()+buildig.getPosZ();
 
 		ini();
 
@@ -66,7 +84,7 @@ public class Floor extends Build {
 		schem = getStyle().getRandomFloor();
 
 		this.virtualX = parent.getvirutalX()+card.getX();
-		this.virtualY = parent.getvirtualY()+card.getZ();
+		this.virtualZ = parent.getvirtualY()+card.getZ();
 
 		ini();
 
@@ -81,7 +99,7 @@ public class Floor extends Build {
 		schem = getStyle().getRandomFloor();
 
 		this.virtualX = parent.getvirutalX();
-		this.virtualY = parent.getvirtualY();
+		this.virtualZ = parent.getvirtualY();
 
 		ini();
 
@@ -94,10 +112,10 @@ public class Floor extends Build {
 
 		Log.print("Stage : "+getStage()+"\n\n");
 		this.x = (virtualX-getConfiguration().getMaxSize()/2) * schem.getDimention().getBlockX()+buildig.getPosX();
-		this.z = (virtualY-getConfiguration().getMaxSize()/2)*schem.getDimention().getBlockZ()+buildig.getPosZ();
+		this.z = (virtualZ-getConfiguration().getMaxSize()/2)*schem.getDimention().getBlockZ()+buildig.getPosZ();
 		this.y = buildig.getPosY()+level*getStyle().getWallsSize();
 
-		buildig.setCase(this.virtualX, this.virtualY, getStage());
+		buildig.setCase(this.virtualX, getStage(),this.virtualZ,getStage());
 		buildig.addFloor(this);
 	}
 
@@ -128,8 +146,10 @@ public class Floor extends Build {
 
 		for(Cardinaux card : Cardinaux.values()) {
 			int nx = virtualX+card.getX();
-			int ny = virtualY + card.getZ();
-			if(buildig.getCase(nx, ny)<level) {
+			int nz = virtualZ + card.getZ();
+			//if(buildig.getCase(nx, level,nz)<=0) {
+			if(buildig.getCase(nx, getStage(),nz)<=0) {
+			
 				Walls w = getWalls(card);
 				w = new Walls(buildig, card, this);
 			}
@@ -140,7 +160,6 @@ public class Floor extends Build {
 	@Override
 	public void build() {
 
-		Log.print("build florr at "+x+" "+y+" "+z);
 
 
 		ClipboardHolder ch2 = new ClipboardHolder(schem.getCliboard());
@@ -237,11 +256,11 @@ public class Floor extends Build {
 
 	public boolean isValid(Cardinaux card) {
 		int nx = virtualX+card.getX();
-		int ny = virtualY + card.getZ();
+		int nz = virtualZ + card.getZ();
 
 
 		//on regade si la case ou lon veux construire notre nouvelle case est libre
-		if(buildig.getCase(nx, ny)==0) {
+		if(buildig.getCase(nx,0, nz)==0) {
 			double rmd =  generateRandom();
 			if(rmd>(1-getConfiguration().getProbabiliteSpawnNext())) {
 				return true;
@@ -275,7 +294,7 @@ public class Floor extends Build {
 
 
 	public int getvirtualY() {
-		return virtualY;
+		return virtualZ;
 	}
 
 	public int getX() {

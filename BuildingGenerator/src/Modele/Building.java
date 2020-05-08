@@ -25,7 +25,7 @@ public class Building {
 	//le terrin sert a savoir si il y a un build 
 	//0 pas de build
 	//1 il y a un build
-	int terrin[][];
+	int terrin[][][];
 	int centreX;
 	int centreY;
 
@@ -46,6 +46,8 @@ public class Building {
 	EditSession editSession;
 
 	ArrayList<Operation> listOperation = new ArrayList<Operation>();
+	
+	boolean noPbr = true;
 
 	//COnstruteur 
 	public Building(GamePlayer gp) {
@@ -61,7 +63,7 @@ public class Building {
 		centreY = getConfiguration().getMaxSize()/2;
 
 		//On genere virutllment un terrin
-		terrin = new int[getConfiguration().getMaxSize()][getConfiguration().getMaxSize()];
+		terrin = new int[getConfiguration().getMaxSize()][getConfiguration().getMaxSize()][getConfiguration().getMaxSize()];
 
 		//On recupre les postion du player
 		posX = gp.getP().getLocation().getBlockX();
@@ -72,18 +74,26 @@ public class Building {
 //On met tt les case du terrin a 0
 		for(int i = 0;i<getConfiguration().getMaxSize();i++) {
 			for(int j = 0;j<getConfiguration().getMaxSize();j++) {
-				terrin[i][j] = 0;
+				for(int k = 0;k<getConfiguration().getMaxSize();k++) {
+					terrin[i][j][k] = 0;
+				}
+				
 
 			}
 		}
 
 
 
-//Et cest partis 
-		generate();
-		build();
+
 	}
 
+	
+	public void run() {
+		//Et cest partis 
+				generate();
+				build();
+	}
+	
 	//on genere vrituelllment tout le battiment 
 	public void generate() {
 		Log.print("Start generation ");
@@ -95,6 +105,7 @@ public class Building {
 			System.out.println("---");
 			Floor f = listFloor.get(indexGenerate);
 			f.generate();
+			
 			indexGenerate++;
 		}
 		
@@ -115,7 +126,12 @@ public class Building {
 		ArrayList<Build> listBuild = getAllBuild();
 //on paste tout les schematics
 		for(Build b : listBuild) {
+			try {
 			b.build();
+			}catch(Exception e) {
+				e.printStackTrace();
+			noPbr = false;
+			}
 
 		}
 
@@ -127,6 +143,7 @@ public class Building {
 			} catch (WorldEditException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				noPbr = false;
 			}
 		}
 //On fini la setion et on save pour le undo
@@ -141,9 +158,10 @@ public class Building {
 	}
 
 
-	public int getCase(int x,int y) {
-		if(x<terrin[0].length&&x>=0&&y<terrin[0].length&&y>=0) {
-			return terrin[x][y];
+	public int getCase(int x,int y,int z) {
+		
+		if(x<terrin[0].length&&x>=0&&y<terrin[0].length&&y>=0&&z<terrin[0].length&&z>=0) {
+			return terrin[x][z][y];
 		}
 		return -1;
 	}
@@ -159,9 +177,9 @@ public class Building {
 		return listBuild;
 	}
 
-	public int setCase(int x,int y,int value) {
+	public int setCase(int x,int y,int z,int value) {
 		if(x<terrin[0].length&&x>=0&&y<terrin[0].length&&y>=0) {
-			terrin[x][y] = value;
+			terrin[x][z][y] = value+1;
 			return 1;
 		}
 		return -1;
@@ -177,7 +195,7 @@ public class Building {
 
 
 	public void addWalls(Walls w) {
-		Log.print("Walls is add");
+	
 		listWalls.add(w);
 	}
 
@@ -221,14 +239,14 @@ public class Building {
 
 
 
-	public int[][] getTerrin() {
+	public int[][][] getTerrin() {
 		return terrin;
 	}
 
 
 
 
-	public void setTerrin(int[][] terrin) {
+	public void setTerrin(int[][][] terrin) {
 		this.terrin = terrin;
 	}
 

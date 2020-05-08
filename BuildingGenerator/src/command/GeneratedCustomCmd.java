@@ -1,18 +1,16 @@
 package command;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-
 import Modele.Building;
+import Modele.Building_Custom;
 import Modele.GamePlayer;
 import fr.cr3art.spigot.Main;
 
-public class GeneratedCmd implements CommandExecutor {
+public class GeneratedCustomCmd implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -21,13 +19,15 @@ public class GeneratedCmd implements CommandExecutor {
 			Player p = (Player) sender;
 		
 			try {
+			
 				if (p.hasPermission("permitionExmple") || p.isOp()) {
 					
 				GamePlayer gp =	Main.getPlayer(p);
 				p.sendMessage("Start");
-				Building bd =	new Building(gp);
-				bd.run();
-					p.sendMessage("End");
+				Building_Custom bdc =	new Building_Custom(gp);
+				bdc.run();
+			
+					p.sendMessage("End Pense a mettre un message avec un try and catch au cas ou on a pas de selection WE");
 				}
 				
 			}catch(Exception e) {

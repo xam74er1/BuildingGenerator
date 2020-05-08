@@ -19,6 +19,8 @@ commands:
      aliases: [aliasA,aliasB]
    generate:
      description: description
+   generateCustom:
+     description: description
    menu:
      description: description
      aliases: [aliasA,aliasB]

@@ -26,11 +26,13 @@ public class Rooft extends Build {
 	public void build() {
 		// TODO Auto-generated method stub
 
+		if(schem!=null) {
 		ClipboardHolder ch2 = new ClipboardHolder(schem.getCliboard());
 		Operation operation = ch2.createPaste(buildig.getEditSession()).to(schem.centreAtPosition(x, y, z, schem.getCliboard()))
 				.ignoreAirBlocks(false).build();
 
 		buildig.addOperation(operation);
+		}
 	}
 	
 

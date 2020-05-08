@@ -12,7 +12,7 @@ public class Stage extends Floor {
 	this.level = parent.getStage()+1;
 	
 	this.y = buildig.getPosY()+level*getStyle().getWallsSize();
-	buildig.setCase(this.virtualX, this.virtualY, getStage());
+	buildig.setCase(this.virtualX, getStage(),this.virtualZ, getStage());
 	
 	buildig.addStage(this);
 	}

@@ -2,6 +2,7 @@ package Modele;
 
 import java.util.Random;
 
+import Utils.ObjetProperty;
 import Utils.StyleExeption;
 
 public class Configuration {
@@ -9,12 +10,12 @@ public class Configuration {
 	
 	
 	//Taille en tout jore
-	int maxSize = 10;
-	int maxLevel = 3;//nbr Etage max
+	ObjetProperty<Integer> maxSize = new ObjetProperty<Integer>(10);
+	ObjetProperty<Integer> maxLevel = new ObjetProperty<Integer>(3);//nbr Etage max
 	
 	//Proba
-	double probabiliteSpawnNext = 0.35;
-	double probabiliteSpawnLevel = 0.35;
+	ObjetProperty<Double> probabiliteSpawnNext = new ObjetProperty<Double>(0.35,0.0,1.0);
+	ObjetProperty<Double> probabiliteSpawnLevel = new ObjetProperty<Double>(0.35,0.0,1.0);
 	
 	
 	
@@ -48,11 +49,11 @@ public class Configuration {
 	//Geter and setter
 
 	public int getMaxSize() {
-		return maxSize;
+		return maxSize.get();
 	}
 
 	public void setMaxSize(int maxSize) {
-		this.maxSize = maxSize;
+		this.maxSize.setValue(maxSize);
 	}
 
 	public Style getStyle() {
@@ -76,11 +77,11 @@ public class Configuration {
 	}
 
 	public double getProbabiliteSpawnNext() {
-		return probabiliteSpawnNext;
+		return probabiliteSpawnNext.get();
 	}
 
 	public void setProbabiliteSpawnNext(double probabiliteSpawnNext) {
-		this.probabiliteSpawnNext = probabiliteSpawnNext;
+		this.probabiliteSpawnNext.set(probabiliteSpawnNext);
 	}
 
 	public int getSeed() {
@@ -100,19 +101,51 @@ public class Configuration {
 	}
 
 	public int getMaxLevel() {
-		return maxLevel;
+		return maxLevel.get();
 	}
 
 	public void setMaxLevel(int maxLevel) {
-		this.maxLevel = maxLevel;
+		this.maxLevel.set(maxLevel);
 	}
 
 	public double getProbabiliteSpawnLevel() {
-		return probabiliteSpawnLevel;
+		return probabiliteSpawnLevel.get();
 	}
 
 	public void setProbabiliteSpawnLevel(double probabiliteSpawnLevel) {
+		this.probabiliteSpawnLevel .set(probabiliteSpawnLevel);
+	}
+
+	public void setMaxSize(ObjetProperty<Integer> maxSize) {
+		this.maxSize = maxSize;
+	}
+
+	public void setMaxLevel(ObjetProperty<Integer> maxLevel) {
+		this.maxLevel = maxLevel;
+	}
+
+	public void setProbabiliteSpawnNext(ObjetProperty<Double> probabiliteSpawnNext) {
+		this.probabiliteSpawnNext = probabiliteSpawnNext;
+	}
+
+	public void setProbabiliteSpawnLevel(ObjetProperty<Double> probabiliteSpawnLevel) {
 		this.probabiliteSpawnLevel = probabiliteSpawnLevel;
+	}
+	
+	
+	
+	public ObjetProperty<Double> getObjectProbabiliteSpawnNext() {
+		return probabiliteSpawnNext;
+	}
+	public ObjetProperty<Integer> getObjectMaxLevel() {
+		return maxLevel;
+	}
+
+	public ObjetProperty<Integer> getObjectMaxSize() {
+		return maxSize;
+	}
+	public ObjetProperty<Double> getObjectProbabiliteSpawnLevel() {
+		return probabiliteSpawnLevel;
 	}
 
 

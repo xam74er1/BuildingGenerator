@@ -10,6 +10,9 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import GUI.MenuConfiguration;
 import GUI.MenuDeBase;
+import GUI.ItemConfig.ItemConfig;
+import Modele.GamePlayer;
+import fr.cr3art.spigot.Main;
 import GUI.LigneDuBas;
 
 public class OnInventoryClick implements Listener {
@@ -33,6 +36,16 @@ public class OnInventoryClick implements Listener {
         if (inv.getType() == InventoryType.CHEST && w.getTitle().equalsIgnoreCase(MenuConfiguration.getName())) {
             MenuConfiguration.onInventoryClick(e);
         }
+        
+        //Chek if we are in config mode 
+        
+        GamePlayer gp = Main.getPlayer(p);
+        
+     ItemConfig itfg =   gp.getInventoryByName(w.getTitle());
+     
+     if(itfg!=null) {
+    	itfg.update(e);
+     }
 
     }
 }

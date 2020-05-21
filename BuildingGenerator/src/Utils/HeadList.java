@@ -45,7 +45,9 @@ public enum HeadList {
 	FRANCE("FRANCE",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTEyNjlhMDY3ZWUzN2U2MzYzNWNhMWU3MjNiNjc2ZjEzOWRjMmRiZGRmZjk2YmJmZWY5OWQ4YjM1Yzk5NmJjIn19fQ=="),
 	YOUTUBE("YOUTUBE",
-			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJmNmMwN2EzMjZkZWY5ODRlNzJmNzcyZWQ2NDU0NDlmNWVjOTZjNmNhMjU2NDk5YjVkMmI4NGE4ZGNlIn19fQ==");
+			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJmNmMwN2EzMjZkZWY5ODRlNzJmNzcyZWQ2NDU0NDlmNWVjOTZjNmNhMjU2NDk5YjVkMmI4NGE4ZGNlIn19fQ=="),
+	PERCENT("%", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTA4NTFjZjA2MjU0OGM0MzYyNTNjMzM3YTQxMTJjZmM5ODU0NDNhNzQ4ZDkzMWNmMjAxZDFlODRmYzcyYjEyYyJ9fX0="),
+	;
 
 	String name;
 	String texture;
@@ -114,5 +116,12 @@ public enum HeadList {
 	public void setTexture(String texture) {
 		this.texture = texture;
 	}
+	
+	public static ItemStack setName(ItemStack is, String name){
+        ItemMeta m = is.getItemMeta();
+        m.setDisplayName(name);
+        is.setItemMeta(m);
+        return is;
+    }
 
 }

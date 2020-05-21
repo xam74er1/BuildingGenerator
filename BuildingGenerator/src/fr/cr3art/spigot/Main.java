@@ -43,7 +43,7 @@ public class Main extends JavaPlugin {
 
 
 		this.getCommand("Menu").setExecutor((CommandExecutor) new Menu());
-		getServer().getPluginManager().registerEvents(new OnInventoryClick(), this);
+		
 
 
 
@@ -52,6 +52,8 @@ public class Main extends JavaPlugin {
 		//listener
 		getServer().getPluginManager().registerEvents(new OnClick(), this);
 		//getServer().getPluginManager().registerEvents(new OnJoin(), this);
+		
+		
 		getServer().getPluginManager().registerEvents(new OnInventoryClick(), this);
 
 

@@ -37,11 +37,17 @@ public class I18nMessage {
 			iniI18n("Style.save.sucesse","Ellement ajoute avec sucesse","Sucesseful add Ellement");
 			iniI18n("Style.save.error","Un probleme est survenus , impossible d'ajoute cette ellement ","A erreor atempt , we can not add this ellement");
 			
+			
 			iniI18n("Config.item.1","Nombre d'Etage Maximume ","Max Stage Number");
 			iniI18n("Config.item.2","Surface Maximalle ","Max Area");
 			iniI18n("Config.item.pStage","Probabilte de spawner un etage ","Spawn stage probabilty");
 			iniI18n("Config.item.pNext","Probabilte de spawner un autre partie ","Spawn probabilty of next parts ");
+			iniI18n("Config.item.maxLvl","Nomre de d'etage maximome ","Maximum number of stage  ");
+			iniI18n("Config.item.maxSize","Taille maximome de la strcuture ","Maximum size au the building  ");
 		
+			iniI18n("show.help","sytaxe de la commande Show : ","Show command syntaxe : ");
+			iniI18n("show.type.error","sytaxe de 'show type' : {0} ","'Show type' syntaxe : {0} ");
+			
 	
 		}
 

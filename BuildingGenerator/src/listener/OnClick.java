@@ -9,6 +9,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class OnClick implements Listener {
 
+	
+	
 	@EventHandler
 	public void onClick(PlayerInteractEvent e) {
 

@@ -19,6 +19,7 @@ import command.Example;
 import command.GeneratedCmd;
 import command.GeneratedCustomCmd;
 import command.Menu;
+import command.ShowCmd;
 import command.StyleCmd;
 import command.cmdTestParticule;
 import listener.OnInventoryClick;
@@ -33,6 +34,7 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
 		playerMap = new HashMap<String, GamePlayer>();
 		
 		
@@ -50,7 +52,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("TestParicule").setExecutor((CommandExecutor) new cmdTestParticule());
 
 		//listener
-		getServer().getPluginManager().registerEvents(new OnClick(), this);
+		OnClick lit = new OnClick();
+		getServer().getPluginManager().registerEvents(lit, this);
 		//getServer().getPluginManager().registerEvents(new OnJoin(), this);
 		
 		
@@ -68,6 +71,11 @@ public class Main extends JavaPlugin {
 
 		this.getCommand("Example").setExecutor(new Example());
 		this.getCommand("Example").setTabCompleter(Example.tabCompleter);
+		
+		
+
+		this.getCommand("Show").setExecutor(new ShowCmd());
+		this.getCommand("Show").setTabCompleter(ShowCmd.tabCompleter);
 		
 		
 		//actionEvryTick();

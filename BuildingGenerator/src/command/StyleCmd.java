@@ -46,9 +46,6 @@ public class StyleCmd implements CommandExecutor , ListArguments{
 			Player p = (Player) sender;
 			GamePlayer gp = Main.getPlayer(p);
 
-			for(String s : args) {
-				Log.debug(s);
-			}
 
 			if(p.isOp()) {
 				int pos = 0;

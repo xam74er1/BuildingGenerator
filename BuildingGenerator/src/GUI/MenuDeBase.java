@@ -15,7 +15,7 @@ import Utils.HeadList;
 public class MenuDeBase extends LigneDuBas {
 	int size = 45;
 	Inventory inv = null;
-	static String name = "�7�lMenu";
+	static String name = "Menu";
 
 	Player p;
 
@@ -44,11 +44,11 @@ public class MenuDeBase extends LigneDuBas {
 		ItemMeta it2 = france.getItemMeta();
 		ItemMeta it3 = commandblock.getItemMeta();
 		ItemMeta it4 = book.getItemMeta();
-		it2.setDisplayName("�c�lLangue");
+		it2.setDisplayName("lLangue");
 		france.setItemMeta(it2);
-		it3.setDisplayName("�c�lConfiguration");
+		it3.setDisplayName("Configuration");
 		commandblock.setItemMeta(it3);
-		it4.setDisplayName("�c�lTutoriels");
+		it4.setDisplayName("lTutoriels");
 		book.setItemMeta(it4);
 
 		inv.setItem(20, france);
@@ -80,7 +80,7 @@ public class MenuDeBase extends LigneDuBas {
 					p.sendMessage("�r�lMettre un lien clickable ici");
 				}
 				if (name.equalsIgnoreCase("�c�lConfiguration")) {
-					new MenuConfiguration(p);
+				//	new MenuConfiguration(p);
 				}
 			}
 		}

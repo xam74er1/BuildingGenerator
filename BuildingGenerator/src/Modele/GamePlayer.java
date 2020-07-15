@@ -2,13 +2,17 @@ package Modele;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
+import GUI.MenuConfiguration;
 import GUI.ItemConfig.ItemConfig;
 import GUI.ItemConfig.ItemConfigProbaility;
 import GUI.ItemConfig.ItemType;
+import Utils.GameConstante;
 import Utils.I18nMessage;
 import Utils.Log;
 
@@ -16,15 +20,16 @@ public class GamePlayer {
 	Player p ;
 	Configuration configuration;
 	I18nMessage message;
-
-	HashMap<String,ItemConfig> mapItemConfig = new HashMap<String, ItemConfig>();
+	MenuConfiguration menuConfig;
+	ShowBuild showBuild;
 
 	public GamePlayer(Player p) {
 		super();
 		this.p = p;
 		this.configuration = new Configuration();
 		message = new I18nMessage();
-		fillInvConfig();
+		menuConfig = new MenuConfiguration(this);
+		showBuild = new ShowBuild(this);
 	}
 
 
@@ -33,15 +38,11 @@ public class GamePlayer {
 	}
 
 
-	public void fillInvConfig() {
-		ItemConfigProbaility it = new ItemConfigProbaility(ItemType.PERCENT,"pStage", Material.STONE, 0, configuration.getObjectProbabiliteSpawnLevel(),message.getMessage("Config.item.pStage"));
-		mapItemConfig.put(it.getName(), it);
 
-		it = new ItemConfigProbaility(ItemType.PERCENT,"pNext", Material.ACACIA_PLANKS, 0, configuration.getObjectProbabiliteSpawnNext(),message.getMessage("Config.item.pNext"));
-		mapItemConfig.put(it.getName(), it);
+	public void back() {
+		p.closeInventory();
+		p.openInventory(menuConfig.getMenuInv());
 	}
-
-
 
 	///////////////////////////::::
 	public void sendMessage(String key) {
@@ -75,11 +76,12 @@ public class GamePlayer {
 	}
 
 	public ItemConfig getInventoryByName(String str) {
-		return mapItemConfig.get(str);
+
+		return menuConfig.getMapItemConfig().get(str);
 	}
-	
+
 	public boolean fillItemCOnfigByName(String name) {
-		ItemConfig it=  mapItemConfig.get(name);
+		ItemConfig it=  menuConfig.getMapItemConfig().get(name);
 		if(it!=null) {
 			it.fill(this);
 			return true;
@@ -104,6 +106,56 @@ public class GamePlayer {
 
 	public void setConfiguration(Configuration configuration) {
 		this.configuration = configuration;
+	}
+
+
+	public I18nMessage getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(I18nMessage message) {
+		this.message = message;
+	}
+
+
+	public HashMap<String, ItemConfig> getMapItemConfig() {
+		return menuConfig.getMapItemConfig();
+	}
+
+
+	public void setMapItemConfig(HashMap<String, ItemConfig> mapItemConfig) {
+		this.menuConfig.setMapItemConfig(mapItemConfig);
+	}
+
+
+	public Inventory getMenuInv() {
+		return menuConfig.getMenuInv();
+	}
+
+
+	public void setMenuInv(Inventory menuInv) {
+		menuConfig.setMenuInv(menuInv);
+	}
+
+
+	public MenuConfiguration getMenuConfig() {
+		return menuConfig;
+	}
+
+
+	public void setMenuConfig(MenuConfiguration menuConfig) {
+		this.menuConfig = menuConfig;
+	}
+
+
+	public ShowBuild getShowBuild() {
+		return showBuild;
+	}
+
+
+	public void setShowBuild(ShowBuild showBuild) {
+		this.showBuild = showBuild;
 	}
 
 

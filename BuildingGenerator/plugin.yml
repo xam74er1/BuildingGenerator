@@ -28,6 +28,8 @@ commands:
     description: test les particule
    style:
     description: relaive a la creation , et liste des style
+   show:
+    description: montre un shematics pour pouvoir le modifier
 permissions:
   exmplePermision:
    description: Allows foo command

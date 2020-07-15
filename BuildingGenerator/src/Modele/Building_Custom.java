@@ -56,8 +56,12 @@ public class Building_Custom extends Building{
 
 
 
+
+
+			int maxSize = Math.max(Math.max(region.getLength(), region.getHeight()),region.getWidth());
+			Log.debug("nvx max :"+maxSize);
 			//On set un nvx max
-			gp.getConfiguration().setMaxSize(Math.max(Math.max(region.getLength(), region.getHeight()),region.getWidth())+1);
+			gp.getConfiguration().setMaxSize(maxSize+1);
 			terrin = new int[getConfiguration().getMaxSize()][getConfiguration().getMaxSize()][getConfiguration().getMaxSize()];
 
 

@@ -2,6 +2,7 @@ package Modele;
 
 import java.util.Random;
 
+import Utils.Log;
 import Utils.ObjetProperty;
 import Utils.StyleExeption;
 
@@ -14,8 +15,8 @@ public class Configuration {
 	ObjetProperty<Integer> maxLevel = new ObjetProperty<Integer>(3);//nbr Etage max
 	
 	//Proba
-	ObjetProperty<Double> probabiliteSpawnNext = new ObjetProperty<Double>(0.35,0.0,1.0);
-	ObjetProperty<Double> probabiliteSpawnLevel = new ObjetProperty<Double>(0.35,0.0,1.0);
+	ObjetProperty<Double> probabiliteSpawnNext = new ObjetProperty<Double>(0.35,0.0,0.99);
+	ObjetProperty<Double> probabiliteSpawnLevel = new ObjetProperty<Double>(0.35,0.0,0.99);
 	
 	
 	
@@ -49,11 +50,13 @@ public class Configuration {
 	//Geter and setter
 
 	public int getMaxSize() {
+	
 		return maxSize.get();
 	}
 
 	public void setMaxSize(int maxSize) {
 		this.maxSize.setValue(maxSize);
+		Log.debug("nvx val "+this.maxSize.get());
 	}
 
 	public Style getStyle() {

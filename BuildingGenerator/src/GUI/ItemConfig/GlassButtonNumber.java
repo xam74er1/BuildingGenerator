@@ -19,13 +19,23 @@ public class GlassButtonNumber extends GlassButton{
 	
 	@Override
 	public void atEvent(ObjetProperty ob) {
+	boolean isInt = ob.get() instanceof Integer;
+	
+	
 		// TODO Auto-generated method stub
-		double res = ((Double )ob.get()) +value;
+		String str = ob.get().toString();
+		double res = Double.valueOf(str) +value;
+		
 
 		res = Math.round(res*100.0)/100.0;
+
+		if(isInt) {
+		int tmp =(int) res;
+		ob.set(tmp);
+		}else {
+			ob.set(res);
+		}
 	
-		
-		ob.set(res);
 	}
 
 	public double getValue() {

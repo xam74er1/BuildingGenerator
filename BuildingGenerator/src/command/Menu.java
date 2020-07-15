@@ -22,10 +22,12 @@ public class Menu implements CommandExecutor {
 				GamePlayer gp = Main.getPlayer(p);
 
 				if(args.length>0) {
-					gp.fillItemCOnfigByName(args[0]);
+					if(!gp.fillItemCOnfigByName(args[0])) {
+						gp.sendMessageError("nom inconus A CHANGER DS CMD.MENU");
+					}
 
 				}else {
-				gp.sendMessageError("pas asse d'argument");
+				p.openInventory(gp.getMenuInv());
 				}
 			}
 		

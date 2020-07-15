@@ -31,25 +31,29 @@ public class ObjetProperty<T> implements Comparable<T>{
 	}
 
 	public T get() {
+		
 		return getValue();
 	}
 
 	public void setValue(T value) {
+	
 		this.tmpToCompare = value;
-		if(compareTo(min)<=0) {
+		if(compareTo(min)<=0&&min!=null) {
 			value = min;
 			
 		}
 
-		if(compareTo(max)>=0) {
+		if(compareTo(max)>=0&&max!=null) {
 			value = max;
 			
 		}
-
-		this.value = value;
+		
+		this.value =(T) value;
+		
 	}
 
 	public void set(T value) {
+	
 		this.setValue(value);
 	}
 

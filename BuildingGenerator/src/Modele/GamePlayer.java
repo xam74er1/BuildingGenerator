@@ -91,7 +91,7 @@ public class GamePlayer {
 
 	///////////
 
-	public Player getP() {
+	public Player getPlayer() {
 		return p;
 	}
 

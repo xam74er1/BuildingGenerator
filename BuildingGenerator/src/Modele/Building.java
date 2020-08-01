@@ -66,9 +66,9 @@ public class Building {
 		terrin = new int[getConfiguration().getMaxSize()][getConfiguration().getMaxSize()][getConfiguration().getMaxSize()];
 
 		//On recupre les postion du player
-		posX = gp.getP().getLocation().getBlockX();
-		posY = gp.getP().getLocation().getBlockY();
-		posZ = gp.getP().getLocation().getBlockZ();
+		posX = gp.getPlayer().getLocation().getBlockX();
+		posY = gp.getPlayer().getLocation().getBlockY();
+		posZ = gp.getPlayer().getLocation().getBlockZ();
 
 
 //On met tt les case du terrin a 0
@@ -119,8 +119,8 @@ public class Building {
 	public void build() {
 		Log.print("Debut du build");
 		//Initilisation
-		localSession = worldEdit.getSession(gp.getP());
-		editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(new BukkitWorld(gp.getP().getWorld()), -1);
+		localSession = worldEdit.getSession(gp.getPlayer());
+		editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(new BukkitWorld(gp.getPlayer().getWorld()), -1);
 
 		//Action
 		ArrayList<Build> listBuild = getAllBuild();

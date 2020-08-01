@@ -93,10 +93,10 @@ public static NamespacedKey nameSpace = new NamespacedKey(Bukkit.getPluginManage
 	}
 	public void fill(GamePlayer gp) {
 		
-		inv = Bukkit.createInventory(gp.getP(), size, name);
+		inv = Bukkit.createInventory(gp.getPlayer(), size, name);
 		
 		generate(inv);
-		gp.getP().openInventory(inv);
+		gp.getPlayer().openInventory(inv);
 		
 		
 	}

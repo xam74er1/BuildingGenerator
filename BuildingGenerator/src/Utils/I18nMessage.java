@@ -47,8 +47,14 @@ public class I18nMessage {
 		
 			iniI18n("show.help","sytaxe de la commande Show : ","Show command syntaxe : ");
 			iniI18n("show.type.error","sytaxe de 'show type' : {0} ","'Show type' syntaxe : {0} ");
-			
-	
+			iniI18n("show.type.pbr","Un probleme est survenus durant l'execution (voir la consolle )  ","Durring the execution of the probleme somentiong whent wrong (show the consolle)  ");
+			iniI18n("show.type.void","La liste {0} n'existe pas ou ne contien aucun shematics  ","the list {0} no exist or contiene no shemactis  ");
+			iniI18n("show.next.error","Une erreur est survenus : Veiller indiquer quella partis vous voullez voir  ","Error during the exectuin : plese indicate witch parts did you whant to see  ");
+			iniI18n("show.update.sucesse","Mise a jour reussi ","Update Sucessful ");
+			iniI18n("show.update.error.notFound","Aucun ellement selection , impossible de fair la mise a jour ","No ellment selected , we can't update ");
+			iniI18n("show.update.error","Echeque de la mise a jour ","Update Failed ");
+			iniI18n("show.delete.sucesse","Ellement suprimer avec sucesse  ","Ellemetss sucessefull deleted ");
+			iniI18n("show.delete.error","Impossible de suprimer l'elleemnt  ","Impossible to delted this ellement ");
 		}
 
 	}

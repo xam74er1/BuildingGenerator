@@ -43,7 +43,7 @@ public class MenuConfiguration  {
 
 	public void fillInvConfig() {
 
-		menuInv = Bukkit.createInventory(gp.getP(), 27,GameConstante.invMenuName);
+		menuInv = Bukkit.createInventory(gp.getPlayer(), 27,GameConstante.invMenuName);
 		//on cree nos item
 
 		ItemConfig it = new ItemConfigProbaility(ItemType.PERCENT,"pStage", Material.STONE, 0, configuration.getObjectProbabiliteSpawnLevel(),message.getMessage("Config.item.pStage"));

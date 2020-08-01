@@ -190,7 +190,7 @@ public class StyleCmd implements CommandExecutor , ListArguments{
 			ligth = ! ligth;
 
 			//On affiche tout 
-			gp.getP().sendMessage(c+"-"+s);
+			gp.getPlayer().sendMessage(c+"-"+s);
 
 		}
 

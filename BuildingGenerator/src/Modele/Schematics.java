@@ -22,16 +22,16 @@ import Utils.GameConstante;
 import Utils.Log;
 
 public class Schematics {
-	
+
 	Clipboard cliboard;
 
 	BlockVector3 centre;
 	BlockVector3 dimention;
 	String path = "no path";
-	
+
 	int rotation = 0;
-	
-	
+
+
 	public Schematics(String path) {
 		load(path);
 		this.path = path;
@@ -39,7 +39,7 @@ public class Schematics {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 
 
 
@@ -50,25 +50,26 @@ public class Schematics {
 	}
 
 
-public void initlisze() {
-	centre = calculeCenter();
-	BlockVector3 tmp = cliboard.getDimensions();
-	dimention = tmp.at(tmp.getBlockX(), tmp.getBlockY(), tmp.getBlockZ());
-}
+	public void initlisze() {
+		centre = calculeCenter();
+		BlockVector3 tmp = cliboard.getDimensions();
+		dimention = tmp.at(tmp.getBlockX(), tmp.getBlockY(), tmp.getBlockZ());
+	}
 
 
 	public void load(String path) {
 
 
-				File file = new File(path);
+		File file = new File(path);
 		Clipboard walls2;
 		ClipboardFormat format = ClipboardFormats.findByFile(file);
 		try {
 			ClipboardReader reader = format.getReader(new FileInputStream(file));
-		this.cliboard =	reader.read();
+			this.cliboard =	reader.read();
 			reader.close();
-			
-			
+		
+
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,12 +77,17 @@ public void initlisze() {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
+		initlisze();
+		if(this.cliboard!=null) {
+			appliqueRotation();
+		}
+
 	}
-	
-	
-	
-	
+
+
+
+
 	public BlockVector3 calculeCenter() {
 
 		BlockVector3 bv3 = cliboard.getOrigin();
@@ -106,18 +112,18 @@ public void initlisze() {
 		Vector3 centre = cliboard.getRegion().getCenter();
 
 		centre = centre.subtract(cliboard.getOrigin().getBlockX(), cliboard.getOrigin().getBlockY(), cliboard.getOrigin().getBlockZ());
-		
+
 
 		return BlockVector3.at(x - centre.getX(), y, z - centre.getZ());
 	}
 
 	public Operation pastWithRotation(int x, int y, int z,  int rotation,EditSession editSession) {
-	
 
-	rotation += this.rotation;
+
+		rotation += this.rotation;
 
 		BlockVector3 bv3 = BlockVector3.at(x, y  , z);
-		
+
 
 		// sert a centre au milleux
 		Vector decalage = blockVector3ToVector(cliboard.getOrigin());
@@ -125,7 +131,7 @@ public void initlisze() {
 
 		decalage = decalage.rotateAroundY(Math.toRadians(rotation));
 
-	//	Log.print("decalage" + decalage);
+		//	Log.print("decalage" + decalage);
 
 		// On les centre au milleux
 		bv3 = bv3.add(BlockVector3.at((int) Math.round(decalage.getX()), (int) Math.round(decalage.getY()), (int) Math.round(decalage.getZ())));
@@ -143,17 +149,17 @@ public void initlisze() {
 		return operation;
 
 	}
-	
+
 	//Si lellment a besoin d'avoir une rotation particluire dans le cas ou x>y 
 	public void appliqueRotation() {
 		if (cliboard.getDimensions().getX() < cliboard.getDimensions().getZ()) {
 			rotation = 90;
-			
-		
-		 dimention =   dimention.at(dimention.getBlockZ(), dimention.getBlockY(), dimention.getBlockX());
-			
+
+			Log.debug("roation");
+			dimention =   dimention.at(dimention.getBlockZ(), dimention.getBlockY(), dimention.getBlockX());
+
 		}
-		
+
 	}
 
 	public int getUpBlock(double a) {
@@ -180,16 +186,9 @@ public void initlisze() {
 		return cliboard;
 	}
 
-
-
-
-
 	public void setCliboard(Clipboard cliboard) {
 		this.cliboard = cliboard;
 	}
-
-
-
 
 
 	public BlockVector3 getCentre() {
@@ -197,22 +196,14 @@ public void initlisze() {
 	}
 
 
-
-
-
 	public void setCentre(BlockVector3 centre) {
 		this.centre = centre;
 	}
 
 
-
-
-
 	public BlockVector3 getDimention() {
 		return dimention;
 	}
-
-
 
 
 
@@ -224,10 +215,34 @@ public void initlisze() {
 
 
 
+	public String getPath() {
+		return path;
+	}
 
-	
-	
-	
-	
+
+
+
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+
+
+
+
+	public int getRotation() {
+		return rotation;
+	}
+
+
+
+
+
+	public void setRotation(int rotation) {
+		this.rotation = rotation;
+	}
+
+
 
 }

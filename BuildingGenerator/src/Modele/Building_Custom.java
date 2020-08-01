@@ -40,7 +40,7 @@ public class Building_Custom extends Building{
 
 	public void annalyse() {
 
-		Player p = gp.getP();
+		Player p = gp.getPlayer();
 		int oldCongiuration = gp.getConfiguration().getMaxSize();
 		WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 		LocalSession localSession = worldEdit.getSession(p);

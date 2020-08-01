@@ -23,7 +23,7 @@ import fr.cr3art.spigot.Main;
 
 
 public class ShowCmd implements CommandExecutor, ListArguments {
-	
+
 
 
 	static ArrayList<Argument> localListArg = new ArrayList<Argument>();
@@ -35,6 +35,9 @@ public class ShowCmd implements CommandExecutor, ListArguments {
 		add(0,"next");
 		add(0,"prev");
 		add(0,"type");
+		add(0,"update");
+		add(0,"delete");
+
 	}
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -49,11 +52,19 @@ public class ShowCmd implements CommandExecutor, ListArguments {
 				int pos = 0;
 				if(isCorect(pos, "type" ,args)) {
 					if(args.length>pos+1) {
-							type(gp,args[pos+1]);
+						type(gp,args[pos+1]);
 					}else {
 						typeError(gp);
 					}
 
+				}else if(isCorect(pos, "next" ,args)) {
+					next(gp);
+				}else if(isCorect(pos, "prev" ,args)) {
+					prev(gp);
+				}else if(isCorect(pos, "update" ,args)) {
+					update(gp);
+				}else if(isCorect(pos, "delete" ,args)) {
+					delete(gp);
 				}
 
 			}
@@ -72,21 +83,77 @@ public class ShowCmd implements CommandExecutor, ListArguments {
 		error+=">";
 		String[] tmp = {error};
 		gp.sendMessage("show.type.error",ChatColor.RED,tmp);
-	
+
 	}
-	
+
 	public void type(GamePlayer gp,String name) {
-		
+
 		if(BuildType.allString().contains(name)) {
-			
-			gp.getShowBuild().show(name, 0);
+
+			int res = gp.getShowBuild().show(name);
+
+			if(res<0) {
+				if(res==-2) {
+					String[] tmp = {name};
+					gp.sendMessage("show.type.void",ChatColor.RED,tmp);
+				}else {
+
+					gp.sendMessage("show.type.error",ChatColor.RED);
+				}
+			}
+
 		}else {
 			typeError(gp);
 		}
-		
+
 	}
 	
+	public void update(GamePlayer gp) {
+		int res = gp.getShowBuild().update();
+		if(res<0) {
+			if(res==-4) {
+				gp.sendMessageError("show.update.error.notFound");
+			}else {
+				gp.sendMessageError("show.update.error");
+			}
+		}else {
+			gp.sendMessageSucesse("show.update.sucesse");
+		}
+	}
+
+	public void next(GamePlayer gp) {
+		if( gp.getShowBuild()!=null) {
+			int res =	gp.getShowBuild().next();
+
+			if(res<0) {
+				gp.sendMessage("show.next.error",ChatColor.RED);
+				typeError(gp);
+
+			}
+		}
+	}
+
+
+	public void prev(GamePlayer gp) {
+		if( gp.getShowBuild()!=null) {
+			int res =	gp.getShowBuild().prev();
+
+			if(res<0) {
+				gp.sendMessage("show.next.error",ChatColor.RED);
+				typeError(gp);
+
+			}
+		}
+	}
+
+	public void delete(GamePlayer gp) {
+	if(	gp.getShowBuild().delete() >0) {
+		gp.sendMessageSucesse("show.delete.sucesse");
+	}else {
+		gp.sendMessageError("show.delete.error");
+	}
 	
+	}
 	public static TabCompleter tabCompleter = new TabCompleter() {
 
 

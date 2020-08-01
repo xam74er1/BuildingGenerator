@@ -32,6 +32,7 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldedit.world.World;
 
 import Modele.Build.BuildType;
 import Modele.Build.Rooft;
@@ -100,6 +101,7 @@ public class Style {
 
 		}
 
+		/*
 		if(name.equalsIgnoreCase("default")) {
 			//Provisoire
 			String[] list = {GameConstante.schematicsPath+"walls6.schem",GameConstante.schematicsPath+"walls5.schem"};
@@ -117,6 +119,7 @@ public class Style {
 
 			}
 		}
+		*/
 		//Provisiroire
 	}
 
@@ -374,7 +377,50 @@ public class Style {
 	}
 
 
+public boolean update(Schematics schem,Region region,World world,BuildType bt) {
+	String pathSchem = schem.getPath();
+	
+	
+	Log.debug("Avant :" +schem.getDimention());
+	BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
 
+	try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
+		ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
+
+		Operations.complete(forwardExtentCopy);
+	} catch (WorldEditException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	
+	//We save the clipbord inside the mode
+			schem.setCliboard(clipboard);
+			
+			Log.debug("bt : "+bt.getName());
+			if(bt == BuildType.Wall) {
+			schem.appliqueRotation();
+			Log.debug("roation ");
+			}
+			Log.debug("Apres :" +schem.getDimention());
+	File f = new File(pathSchem);
+
+	try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(f))) {
+		//We save the file
+		writer.write(clipboard);
+		
+		
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return false;
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return false;
+	}
+	return true;
+}
 
 
 

@@ -28,6 +28,8 @@ buildig.addWalls(this);
 		
 	//Log.print("\n\n start build walls");
 	
+		Log.debug("North "+Cardinaux.North+" South"+Cardinaux.South);
+		
 //	Log.print("start : at "+floor.getX()+" "+floor.getY()+" "+floor.getZ()+" dim "+floor.getDimention()+" centre "+floor.getCentre());
 		
 		BlockVector3 dim = floor.getDimention();
@@ -50,7 +52,7 @@ buildig.addWalls(this);
 		}else {
 			schem = getStyle().getRandomWalls(dim.getBlockX());
 			int decalage = cardinaux.getX()+cardinaux.getZ();
-			x = floor.getX()+(dim.getBlockX()/2)*-decalage;
+			x = floor.getX()+(dim.getBlockX()/2)*decalage;
 			z = floor.getZ()+(dim.getBlockZ()/2)*decalage;
 		}
 		

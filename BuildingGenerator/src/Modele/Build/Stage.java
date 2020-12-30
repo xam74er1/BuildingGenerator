@@ -8,7 +8,7 @@ public class Stage extends Floor {
 
 	public Stage(Building building, Floor parent) {
 		super(building, parent);
-		Log.print("Etage");
+		//Log.print("Etage");
 	this.level = parent.getStage()+1;
 	
 	this.y = buildig.getPosY()+level*getStyle().getWallsSize();

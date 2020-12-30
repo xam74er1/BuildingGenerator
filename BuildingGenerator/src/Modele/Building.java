@@ -102,7 +102,7 @@ public class Building {
 
 		//On genere toute la vase 
 		while(indexGenerate<listFloor.size()) {
-			System.out.println("---");
+		//	System.out.println("---");
 			Floor f = listFloor.get(indexGenerate);
 			f.generate();
 			

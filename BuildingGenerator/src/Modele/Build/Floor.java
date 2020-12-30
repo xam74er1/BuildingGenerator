@@ -2,7 +2,7 @@ package Modele.Build;
 
 
 
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.function.operation.Operation;
@@ -13,9 +13,9 @@ import Modele.Building;
 import Modele.Cardinaux;
 import Modele.Schematics;
 import Utils.Log;
-import net.minecraft.server.v1_14_R1.BlockPosition;
-import net.minecraft.server.v1_14_R1.EntityPlayer;
-import net.minecraft.server.v1_14_R1.PacketPlayOutOpenSignEditor;
+import net.minecraft.server.v1_16_R2.BlockPosition;
+import net.minecraft.server.v1_16_R2.EntityPlayer;
+import net.minecraft.server.v1_16_R2.PacketPlayOutOpenSignEditor;
 
 public class Floor extends Build {
 
@@ -172,13 +172,13 @@ public class Floor extends Build {
 
 
 	public void generateStage() {
-		Log.print("Start stage");
+		//Log.print("Start stage");
 		double rmd =  generateRandom();
 		if(level<getConfiguration().getMaxLevel()&&rmd<getConfiguration().getProbabiliteSpawnLevel()) {
 			etage = new Stage(buildig, this);
-			Log.print("Stage  generated !! "+level);
+			//Log.print("Stage  generated !! "+level);
 		}else {
-			Log.print("Stage NOT generated");
+		//	Log.print("Stage NOT generated");
 		}
 	}
 

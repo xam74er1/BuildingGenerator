@@ -2,8 +2,8 @@ package Modele;
 
 public enum Cardinaux {
 	
-	North("North",180,0,-1),
-	South("South",0,0,1),
+	North("North",0,0,-1),
+	South("South",180,0,1),
 	West("West",90,-1,0),
 	East("East",-90,1,0);
 	
@@ -45,7 +45,12 @@ public enum Cardinaux {
 	public void setZ(int z) {
 		this.z = z;
 	}
-
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.name+" "+this.rotation+" "+this.x+" "+this.z;
+	}
+	
 	
 	
 

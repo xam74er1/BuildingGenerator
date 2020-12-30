@@ -9,14 +9,14 @@ import org.bukkit.command.Command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.util.Location;
 
 import Utils.Log;
-import net.minecraft.server.v1_14_R1.BlockPosition;
-import net.minecraft.server.v1_14_R1.PacketPlayOutOpenSignEditor;
+import net.minecraft.server.v1_16_R2.BlockPosition;
+import net.minecraft.server.v1_16_R2.PacketPlayOutOpenSignEditor;
 
 import org.bukkit.command.CommandExecutor;
 

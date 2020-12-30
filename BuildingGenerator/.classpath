@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/xam74/Desktop/Minecraft/spigot-1.14.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/xam74/Desktop/Minecraft/ProtocolLib.jar"/>
-	<classpathentry kind="lib" path="C:/Users/xam74/Desktop/Serveur/plugins/worldedit-bukkit-7.1.0 (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/xam74/Documents/Serveur/spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xam74/Documents/Serveur/plugins/worldedit-bukkit-7.2.0-beta-05.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

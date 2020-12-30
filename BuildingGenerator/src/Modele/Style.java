@@ -7,22 +7,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.ObjectUtils.Null;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
@@ -30,13 +35,17 @@ import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
 import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
 import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.math.Vector3;
+import com.sk89q.worldedit.math.transform.AffineTransform;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
 
 import Modele.Build.BuildType;
 import Modele.Build.Rooft;
 import Utils.FileUtility;
+import Utils.FlattenedClipboardTransform;
 import Utils.GameConstante;
 import Utils.Log;
 
@@ -48,6 +57,8 @@ public class Style {
 	ArrayList<Schematics> listFloor = new ArrayList<Schematics>();
 	ArrayList<Schematics> listWalls = new ArrayList<Schematics>();
 	ArrayList<Schematics> listRooft = new ArrayList<Schematics>();
+
+	boolean debug = false;
 
 	//Taille des mur
 	int wallsSize = -1;
@@ -74,7 +85,7 @@ public class Style {
 			listFloor.add(new Schematics(f.getAbsolutePath()));
 		}
 
-		if(name.equalsIgnoreCase("default")) {
+		if(name.equalsIgnoreCase("default")&&debug) {
 			//Provisoire
 			listFloor.add(new Schematics(GameConstante.schematicsPath+"base2.schem"));
 		}
@@ -119,7 +130,7 @@ public class Style {
 
 			}
 		}
-		*/
+		 */
 		//Provisiroire
 	}
 
@@ -132,7 +143,7 @@ public class Style {
 		for(File f : listSchem) {
 			listRooft.add(new Schematics(f.getAbsolutePath()));
 		}
-		if(name.equalsIgnoreCase("default")) {
+		if(name.equalsIgnoreCase("default")&&debug) {
 			listRooft.add(new Schematics(GameConstante.schematicsPath+"base2.schem"));
 		}
 	}
@@ -149,11 +160,13 @@ public class Style {
 		Schematics min = null;
 		int dmin = Integer.MAX_VALUE;
 
+		Collections.shuffle(listWalls);
+		
 		for(Schematics w : listWalls) {
 			int dx = Math.abs(w.getDimention().getBlockX()-Math.abs(param));
 
 			//	Log.print("d = "+dx+" "+w.path+" "+w.getDimention()+" p "+param);
-
+//On autorise un delta de 1 pour le cas ou le playeur prend l'interiere de la strcure sans pense au walls
 			if(dx==0) {
 				candidat.add(w);
 			}else if(dmin>dx){
@@ -162,7 +175,7 @@ public class Style {
 			}
 
 		}
-
+Log.print("nb de wall possilbe "+candidat.size()+" / "+listWalls.size());
 		if(candidat.size()!=0) {
 			return candidat.get((int) Math.round(Math.random()*(candidat.size()-1))); 
 		}
@@ -220,7 +233,7 @@ public class Style {
 		//On cree le fichier principale
 		boolean cree = FileUtility.createFileIfNotExiste(GameConstante.stylePath+"/"+name);
 
-//On cree pour chaque buit type un fichier 
+		//On cree pour chaque buit type un fichier 
 		for(BuildType bt : BuildType.values()) {
 			FileUtility.createFileIfNotExiste(GameConstante.stylePath+"/"+name+"/"+bt.getName());
 		}
@@ -245,6 +258,7 @@ public class Style {
 		if(bt!=null) {
 			WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 			try {
+
 				Region region = worldEdit.getSession(player).getSelection(worldEdit.getSession(player).getSelectionWorld());
 
 
@@ -263,7 +277,39 @@ public class Style {
 				}
 
 
-				return save(bt,clipboard );
+
+				ClipboardHolder holder = new ClipboardHolder(clipboard);
+				//On detemne la rotation a effectuer : 
+				BlockVector3 min = region.getMinimumPoint();
+				BlockVector3 max = region.getMaximumPoint();
+				Vector3 ctre =	region.getCenter();
+						Location loc = player.getLocation();
+				Log.debug("Centre "+region.getCenter());
+				
+				
+				BlockVector3 deb = min.subtract(max);
+				Vector3 end = ctre.subtract(loc.getBlockX(),loc.getBlockY(),loc.getBlockZ());
+				
+				int rotation = getRotation((int)deb.getX(),(int)deb.getZ(),(int)end.getX(),(int)end.getZ())+180;
+				Log.debug("Roation"+rotation);
+				AffineTransform transform = new AffineTransform();
+
+				transform = transform.rotateY(rotation);
+				final Clipboard target;
+
+				final FlattenedClipboardTransform result = FlattenedClipboardTransform.transform(clipboard, transform);
+				target = new BlockArrayClipboard(result.getTransformedRegion());
+				target.setOrigin(clipboard.getOrigin());
+				try {
+					Operations.completeLegacy(result.copyTo(target));
+				} catch (MaxChangedBlocksException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+
+
+				return save(bt,target );
 			} catch (IncompleteRegionException |NullPointerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -277,12 +323,12 @@ public class Style {
 		return false;
 	}
 
-/*
- * Sauvegade une selection en un schematics
- * 
- * @return une boolean
- * 
- */
+	/*
+	 * Sauvegade une selection en un schematics
+	 * 
+	 * @return une boolean
+	 * 
+	 */
 	public boolean save(BuildType build,Clipboard clipboard) {
 
 		//Chemin du dossier
@@ -291,6 +337,8 @@ public class Style {
 		if(!folder.exists()) {
 			folder.mkdirs();
 		}
+
+
 
 
 		String patternStr = build.getName()+".*[0-9]+\\.schem$";
@@ -377,51 +425,87 @@ public class Style {
 	}
 
 
-public boolean update(Schematics schem,Region region,World world,BuildType bt) {
-	String pathSchem = schem.getPath();
-	
-	
-	Log.debug("Avant :" +schem.getDimention());
-	BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
+	public boolean update(Schematics schem,Region region,World world,BuildType bt) {
+		String pathSchem = schem.getPath();
 
-	try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
-		ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
 
-		Operations.complete(forwardExtentCopy);
-	} catch (WorldEditException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		Log.debug("Avant :" +schem.getDimention());
+		BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
 
-	
-	//We save the clipbord inside the mode
-			schem.setCliboard(clipboard);
-			
-			Log.debug("bt : "+bt.getName());
-			if(bt == BuildType.Wall) {
+		try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1)) {
+			ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
+
+			Operations.complete(forwardExtentCopy);
+		} catch (WorldEditException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		//We save the clipbord inside the mode
+		schem.setCliboard(clipboard);
+
+		Log.debug("bt : "+bt.getName());
+		if(bt == BuildType.Wall) {
 			schem.appliqueRotation();
 			Log.debug("roation ");
-			}
-			Log.debug("Apres :" +schem.getDimention());
-	File f = new File(pathSchem);
+		}
+		Log.debug("Apres :" +schem.getDimention());
+		File f = new File(pathSchem);
 
-	try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(f))) {
-		//We save the file
-		writer.write(clipboard);
-		
-		
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		return false;
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		return false;
+		try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(f))) {
+			//We save the file
+			writer.write(clipboard);
+
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
-	return true;
-}
 
+	public int getRotation(int mx,int my,int px,int py) {
+		Log.debug(" m "+mx+" "+my+" p "+px+" "+py);
+//		double rad = Math.atan2((my-py), (mx-px));
+//
+//		double compassReading = rad * (180 / Math.PI);
+//		Log.debug("rad :" +rad+" deg "+compassReading);
+//		int index =  (int) Math.round(compassReading / 90);
+//		Log.debug("Index "+index);
+//		if(index<0) {
+//			index+=2;
+//
+//		}
+//
+
+//		int[] rota = {90,180,-90,0};
+//
+//		return rota[index];
+		
+		if(px>=py) {
+			if(mx<=my) {
+				return 0;
+			}else {
+				return 90;
+			}
+			
+		}else {
+			if(mx<=my) {
+				return 180;
+			}else {
+				return -90;
+			}
+			
+		}
+		
+	
+	}
 
 
 	/////////////////////////////////////////////////////////

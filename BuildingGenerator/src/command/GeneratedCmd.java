@@ -27,7 +27,8 @@ public class GeneratedCmd implements CommandExecutor {
 				p.sendMessage("Start");
 				Building bd =	new Building(gp);
 				bd.run();
-					p.sendMessage("End");
+			
+					
 				}
 				
 			}catch(Exception e) {

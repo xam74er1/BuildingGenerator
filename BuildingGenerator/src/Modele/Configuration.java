@@ -11,8 +11,8 @@ public class Configuration {
 	
 	
 	//Taille en tout jore
-	ObjetProperty<Integer> maxSize = new ObjetProperty<Integer>(10);
-	ObjetProperty<Integer> maxLevel = new ObjetProperty<Integer>(3);//nbr Etage max
+	ObjetProperty<Integer> maxSize = new ObjetProperty<Integer>(10,1,Integer.MAX_VALUE);
+	ObjetProperty<Integer> maxLevel = new ObjetProperty<Integer>(3,1,Integer.MAX_VALUE);//nbr Etage max
 	
 	//Proba
 	ObjetProperty<Double> probabiliteSpawnNext = new ObjetProperty<Double>(0.35,0.0,0.99);

@@ -31,12 +31,14 @@ public class Main extends JavaPlugin {
 	static	HashMap<String,GamePlayer> playerMap ;
 	
 	Thread demon;
+	
+	public static Main me;
 
 	@Override
 	public void onEnable() {
 		
 		playerMap = new HashMap<String, GamePlayer>();
-		
+		me = this;
 		
 		ini();
 
@@ -85,11 +87,11 @@ public class Main extends JavaPlugin {
 	public static GamePlayer getPlayer(Player p) {
 
 		GamePlayer gp;
-		if(playerMap.containsKey(p.getCustomName())) {
-			gp = playerMap.get(p.getCustomName());
+		if(playerMap.containsKey(p.getName())) {
+			gp = playerMap.get(p.getName());
 		}else {
 			gp = new GamePlayer(p);
-			playerMap.put(p.getCustomName(), gp);
+			playerMap.put(p.getName(), gp);
 		}
 		return gp;
 	}

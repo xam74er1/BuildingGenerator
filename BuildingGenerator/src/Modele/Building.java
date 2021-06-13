@@ -3,6 +3,8 @@ package Modele;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalSession;
@@ -18,6 +20,7 @@ import Modele.Build.Floor;
 import Modele.Build.Rooft;
 import Modele.Build.Walls;
 import Utils.Log;
+import fr.cr3art.spigot.Main;
 
 public class Building {
 	GamePlayer gp;
@@ -87,11 +90,22 @@ public class Building {
 
 	}
 
-	
+
 	public void run() {
 		//Et cest partis 
-				generate();
-				build();
+				//Pour du debug
+		Floor.cnt = 0;
+		   BukkitScheduler scheduler = Bukkit.getScheduler();
+	        scheduler.scheduleSyncDelayedTask(Main.me, new Runnable() {
+	            @Override
+	            public void run() {
+	            	generate();
+					build();
+					gp.sendMessageSucesse("building end");
+	            }
+	        }, 0L);
+				
+		
 	}
 	
 	//on genere vrituelllment tout le battiment 
@@ -100,9 +114,14 @@ public class Building {
 		start = new Floor(this, centreX, centreY);
 		start.generate();
 
+//Pour evite un bug ou cela tourne en round , on verifie quil ne fait pas plus de tour que le nbr max de case possible		
+		int max = getConfiguration().getMaxSize();
+		//dimMax^3
+		max = max*max*max;
+		
 		//On genere toute la vase 
-		while(indexGenerate<listFloor.size()) {
-		//	System.out.println("---");
+		while(indexGenerate<listFloor.size()&&indexGenerate<max) {
+			System.out.println("---"+indexGenerate);
 			Floor f = listFloor.get(indexGenerate);
 			f.generate();
 			
@@ -178,7 +197,8 @@ public class Building {
 	}
 
 	public int setCase(int x,int y,int z,int value) {
-		if(x<terrin[0].length&&x>=0&&y<terrin[0].length&&y>=0) {
+		//if(x<terrin[0].length&&x>=0&&y<terrin[0].length&&y>=0) {
+		if(x<terrin[0].length&&x>=0&&y<terrin[0].length&&y>=0&&z<terrin[0].length&&z>=0) {
 			terrin[x][z][y] = value+1;
 			return 1;
 		}

@@ -56,8 +56,8 @@ buildig.addWalls(this);
 			z = floor.getZ()+(dim.getBlockZ()/2)*decalage;
 		}
 		
-
-		int y = floor.getY()-1;
+//Sert a decale le mur de 1 pour evite qui sois sur le sol 
+		int y = floor.getY();
 		x += cardinaux.getX();
 		z += cardinaux.getZ();
 	

@@ -41,6 +41,8 @@ public class OnInventoryClick implements Listener {
 			InventoryView w = e.getView();
 
 			GamePlayer gp = Main.getPlayer(p);
+			
+			Log.debug("Player qui a cliquer" + gp.getPlayer().getName() +" realite "+p.getName());
 
 			//        if (inv.getType() == InventoryType.CHEST && w.getTitle().equalsIgnoreCase(LigneDuBas.getName())) {
 			//            LigneDuBas.onInventoryClick(e);
@@ -59,6 +61,7 @@ public class OnInventoryClick implements Listener {
 
 				ItemStack clickedItem =	e.getCurrentItem();
 				Log.debug("on a clique ds le menus");
+				e.setCancelled(true);
 
 				if(clickedItem!=null) {
 					String name = clickedItem.getItemMeta().getPersistentDataContainer().get(ItemConfig.nameSpace, PersistentDataType.STRING);
@@ -69,7 +72,6 @@ public class OnInventoryClick implements Listener {
 
 					
 				}
-				e.setCancelled(true);
 
 			}else {
 				Log.debug("Else listenr inv");

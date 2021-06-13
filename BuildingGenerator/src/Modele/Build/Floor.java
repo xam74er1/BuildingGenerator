@@ -2,7 +2,7 @@ package Modele.Build;
 
 
 
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.function.operation.Operation;
@@ -13,13 +13,13 @@ import Modele.Building;
 import Modele.Cardinaux;
 import Modele.Schematics;
 import Utils.Log;
-import net.minecraft.server.v1_16_R2.BlockPosition;
-import net.minecraft.server.v1_16_R2.EntityPlayer;
-import net.minecraft.server.v1_16_R2.PacketPlayOutOpenSignEditor;
+import net.minecraft.server.v1_16_R3.BlockPosition;
+import net.minecraft.server.v1_16_R3.EntityPlayer;
+import net.minecraft.server.v1_16_R3.PacketPlayOutOpenSignEditor;
 
 public class Floor extends Build {
 
-
+public static int cnt =0;
 
 
 	//Les mur des 4 cotte
@@ -122,7 +122,8 @@ public class Floor extends Build {
 
 	@Override
 	public void generate() {
-		Log.print("Generate start floor");
+		cnt++;
+		Log.print("Generate start floor :"+cnt);
 
 		for(Cardinaux card : Cardinaux.values()) {
 			//Si on a aucun sol qui a ete genere 
@@ -263,6 +264,7 @@ public class Floor extends Build {
 		if(buildig.getCase(nx,0, nz)==0) {
 			double rmd =  generateRandom();
 			if(rmd>(1-getConfiguration().getProbabiliteSpawnNext())) {
+				Log.debug(nx+" "+nz+" = "+buildig.getCase(nx,0, nz));
 				return true;
 			}
 

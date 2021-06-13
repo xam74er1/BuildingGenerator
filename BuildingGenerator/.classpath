@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/xam74/Documents/Serveur/spigot.jar"/>
-	<classpathentry kind="lib" path="C:/Users/xam74/Documents/Serveur/plugins/worldedit-bukkit-7.2.0-beta-05.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xam74/Documents/Serveur/spigot-1.16.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xam74/Documents/Serveur/plugins/worldedit-bukkit-7.2.0-dist.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

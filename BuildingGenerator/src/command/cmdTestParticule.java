@@ -5,7 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_16_R2.command.CraftBlockCommandSender;
+import org.bukkit.craftbukkit.v1_16_R3.command.CraftBlockCommandSender;
 import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.EmptyClipboardException;

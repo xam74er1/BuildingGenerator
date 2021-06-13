@@ -4,8 +4,8 @@ public enum Cardinaux {
 	
 	North("North",0,0,-1),
 	South("South",180,0,1),
-	West("West",90,-1,0),
-	East("East",-90,1,0);
+	West("West",90,1,0),
+	East("East",-90,-1,0);
 	
 	
 	String name;

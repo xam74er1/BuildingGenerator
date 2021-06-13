@@ -119,7 +119,7 @@ public class Building {
 		//dimMax^3
 		max = max*max*max;
 		
-		//On genere toute la vase 
+		//On genere toute la base 
 		while(indexGenerate<listFloor.size()&&indexGenerate<max) {
 			System.out.println("---"+indexGenerate);
 			Floor f = listFloor.get(indexGenerate);

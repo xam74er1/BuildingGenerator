@@ -175,7 +175,7 @@ public class Style {
 			}
 
 		}
-Log.print("nb de wall possilbe "+candidat.size()+" / "+listWalls.size());
+//Log.print("nb de wall possilbe "+candidat.size()+" / "+listWalls.size());
 		if(candidat.size()!=0) {
 			return candidat.get((int) Math.round(Math.random()*(candidat.size()-1))); 
 		}
